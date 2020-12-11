@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from enum import Enum 
 
 class TokenType(Enum):
@@ -6,10 +7,13 @@ class TokenType(Enum):
   MINUS = 2
   MULTIPLY = 3
   DIVIDE = 4
-  LPAR = 6
-  RPAR = 5
+  LPAR = 5
+  RPAR = 6
 
+@dataclass
 class Token():
-  def __init__(self, type: TokenType, value=None):
-     self.type = type
-     self.value = value
+  type: TokenType
+  value: any = None
+
+  def __repr__(self):
+    return self.type.name + (f":{self.value}" if self.value != None else "")
