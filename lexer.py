@@ -2,7 +2,7 @@ from tokens  import Token, TokenType
 
 class Lexer():
   def __init__(self, text):
-    self.text = iter(text) # Don't know what iter does
+    self.text = iter(text)
     self.advance()
   def advance(self):
     try:
@@ -11,8 +11,11 @@ class Lexer():
       self.current_char = None
   def make_token(self):
     while self.current_char != None:
-      if self.current_char in " \t\n":
+      if self.current_char in " \t":
         self.advance()
+      elif self.current_char == "\n":
+        self.advance()
+        yield Token(TokenType.NEWLINE)
       elif self.current_char == '.' or self.current_char in "0123456789":
         yield self.make_number()
       elif self.current_char == "+":
@@ -34,7 +37,7 @@ class Lexer():
         self.advance()
         yield Token(TokenType.RPAR)
       else:
-        print(f"Did not understand unknown char '{self.current_char}'")
+        print(f"Did not understand char '{self.current_char}'")
         break
   def make_number(self):
     decimal_point_count = 0
@@ -42,7 +45,7 @@ class Lexer():
     self.advance()
 
     while self.current_char != None and (self.current_char == '.' or self.current_char in "0123456789"):
-      if current_char == '.':
+      if self.current_char == '.':
         decimal_point_count += 1
         if decimal_point_count > 1:
           break
