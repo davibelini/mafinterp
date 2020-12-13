@@ -1,5 +1,6 @@
 import sys
 from lexer import Lexer
+from parse import Parser
 
 if len(sys.argv) > 1:
   if sys.argv[1] == "-f" or sys.argv[1] == "--file":
@@ -16,4 +17,5 @@ else:
     text = input('mafinterp >')
     lexer = Lexer(text)
     tokens = lexer.make_token()
-    print(list(tokens))
+    parser = Parser(tokens)
+    print(parser.parse())
