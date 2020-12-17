@@ -15,6 +15,8 @@ if len(sys.argv) > 1:
 else:
   while True:
     text = input('mafinterp >')
+    if text == 'quit' or text == 'end' or text =='exit':
+      quit()
     lexer = Lexer(text)
     tokens = lexer.make_token()
     parser = Parser(tokens)
