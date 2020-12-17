@@ -16,37 +16,37 @@ class Parser():
     def parse(self):
         if self.current_token == None:
             return None
-        result = self.expression()
+        result = self.get_expression()
         if self.current_token != None:
             self.raise_error()
         return result
-    def expression(self):
-        result = self.term()
+    def get_expression(self): # Expression is two factors linked by low priority operators(5 + 2 * 3), ignoring * or /
+        result = self.get_term()
         while self.current_token != None and self.current_token.type in (TokenType.PLUS, TokenType.MINUS):
             if self.current_token.type == TokenType.PLUS:
                 self.advance()
-                result = AddNode(result, self.term())
+                result = AddNode(result, self.get_term())
             elif self.current_token.type == TokenType.MINUS:
                 self.advance()
-                result = SubtractNode(result, self.term())
+                result = SubtractNode(result, self.get_term())
         return result
-    def term(self):
-        result = self.factor()
+    def get_term(self): # Term is two factors linked by high priority operators(2 * 3)
+        result = self.get_factor()
         while self.current_token != None and self.current_token.type in  (TokenType.MULTIPLY, TokenType.DIVIDE):
             if self.current_token.type == TokenType.MULTIPLY:
                 self.advance()
-                result = MultiplyNode(result, self.factor())
+                result = MultiplyNode(result, self.get_factor())
             elif self.current_token.type == TokenType.DIVIDE:
                 self.advance()
-                result = DivideNode(result, self.factor())
+                result = DivideNode(result, self.get_factor())
 
         return result
-    def factor(self):
+    def get_factor(self): # Looks for a individual number(5, 2, 3)
         token = self.current_token
 
         if token.type == TokenType.LPAR:
             self.advance()
-            result = self.expression()
+            result = self.get_expression()
 
             if self.current_token.type != TokenType.RPAR:
                 self.raise_error()
@@ -59,9 +59,9 @@ class Parser():
             return NumberNode(token.value)
         elif token.type == TokenType.PLUS:
             self.advance()
-            return PlusNode(self.factor())
+            return PlusNode(self.get_factor())
         elif token.type == TokenType.MINUS:
             self.advance()
-            return MinusNode(self.factor())
+            return MinusNode(self.get_factor())
         else:
             self.raise_error()

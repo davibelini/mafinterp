@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 
 @dataclass
-class NumberNode():
+class NumberNode(): # Represents a factor
     value: float
 
     def __repr__(self):
         return f'{self.value}'
 
 @dataclass
-class AddNode():
+class AddNode(): # Represents a add expression
     node_a: float
     node_b: float
 
@@ -16,7 +16,7 @@ class AddNode():
         return f"({self.node_a}+{self.node_b})"
 
 @dataclass
-class SubtractNode():
+class SubtractNode(): # Represents a subtract expression
     node_a: float
     node_b: float
 
@@ -24,7 +24,7 @@ class SubtractNode():
         return f"({self.node_a}-{self.node_b})"
 
 @dataclass
-class MultiplyNode():
+class MultiplyNode(): # Represents a multiply term
     node_a: float
     node_b: float
 
@@ -33,7 +33,7 @@ class MultiplyNode():
 
 
 @dataclass
-class DivideNode():
+class DivideNode(): # Represents a division term
     node_a: float
     node_b: float
 
@@ -42,7 +42,7 @@ class DivideNode():
 
 
 @dataclass
-class PlusNode():
+class PlusNode(): # Represents a positive number
     node: any
 
     def __repr__(self): 
