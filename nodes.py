@@ -2,31 +2,31 @@ from dataclasses import dataclass
 
 @dataclass
 class NumberNode(): # Represents a factor
-    value: float
+    value: any
 
     def __repr__(self):
         return f'{self.value}'
 
 @dataclass
 class AddNode(): # Represents a add expression
-    node_a: float
-    node_b: float
+    node_a: any
+    node_b: any
 
     def __repr__(self):
         return f"({self.node_a}+{self.node_b})"
 
 @dataclass
 class SubtractNode(): # Represents a subtract expression
-    node_a: float
-    node_b: float
+    node_a: any
+    node_b: any
 
     def __repr__(self):
         return f"({self.node_a}-{self.node_b})"
 
 @dataclass
 class MultiplyNode(): # Represents a multiply term
-    node_a: float
-    node_b: float
+    node_a: any
+    node_b: any
 
     def __repr__(self):
         return f"({self.node_a}*{self.node_b})"
@@ -34,8 +34,8 @@ class MultiplyNode(): # Represents a multiply term
 
 @dataclass
 class DivideNode(): # Represents a division term
-    node_a: float
-    node_b: float
+    node_a: any
+    node_b: any
 
     def __repr__(self):
         return f"({self.node_a}/{self.node_b})"
