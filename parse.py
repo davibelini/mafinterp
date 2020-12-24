@@ -20,9 +20,9 @@ class Parser():
             self.raise_error()
         return result
     def get_expression(self):
-        result = self.get_term()
+        result = self.get_term() # If there is only multiplication or division
         while self.current_token != None and self.current_token.type in (TokenType.PLUS, TokenType.MINUS):
-            if self.current_token.type == TokenType.PLUS:   
+            if self.current_token.type == TokenType.PLUS: 
                 self.advance()
                 result = AddNode(result, self.get_term())
             elif self.current_token.type == TokenType.MINUS:
@@ -30,7 +30,7 @@ class Parser():
                 result = SubtractNode(result, self.get_term())
         return result
     def get_term(self):
-        result = self.get_factor()
+        result = self.get_factor() # return factor if there is no umltiply or divide operation
         while self.current_token != None and self.current_token.type in (TokenType.MULTIPLY, TokenType.DIVIDE):
             if self.current_token.type == TokenType.MULTIPLY:
                 self.advance()
